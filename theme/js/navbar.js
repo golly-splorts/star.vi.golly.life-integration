@@ -31,6 +31,7 @@
           // Populate season drop-down
           var sdropElem = document.createElement('a');
           sdropElem.classList.add('dropdown-item');
+          //sdropElem.setAttribute('href', baseUIUrl + '/season.html?season=' + season0);
           sdropElem.setAttribute('href', baseUIUrl + '/season.html?which_season=' + sp1);
           sdropElem.innerHTML = 'Season ' + sp1;
           navbarSeasonDropdown.appendChild(sdropElem);
@@ -38,6 +39,7 @@
           // Populate postseason drop-down
           var pdropElem = document.createElement('a');
           pdropElem.classList.add('dropdown-item');
+          //pdropElem.setAttribute('href', baseUIUrl + '/postseason.html?season=' + season0);
           pdropElem.setAttribute('href', baseUIUrl + '/postseason.html?which_season=' + sp1);
           pdropElem.innerHTML = 'Season ' + sp1;
           navbarPostseasonDropdown.appendChild(pdropElem);
