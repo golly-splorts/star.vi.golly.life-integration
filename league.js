@@ -162,10 +162,11 @@
         const currentDay0 = Math.floor(elapsed / 3600);
         const currentDay = currentDay0 + 1;
         if (currentDay > 1) {
-          for (let i = 1; i <= currentDay; i++) {
+          const lastCompletedDay = currentDay - 1;
+          for (let i = 1; i <= lastCompletedDay; i++) {
             days.push(i);
           }
-          defaultDayValue = currentDay;
+          defaultDayValue = lastCompletedDay;
         } else {
           // No full day has passed, so no days to list for this season.
           // Handled by default case below.
@@ -254,6 +255,17 @@
     processStandingsData : function(season, day) {
       this.clearStandings();
       this.loading();
+
+      const leagueStandingsContainer = document.getElementById('league-standings-container');
+      const mode = this.modeApiResult.mode;
+      const currentSeason = this.modeApiResult.season + 1;
+      const showGlColumn = (mode >= 10 && mode < 20 && season == currentSeason);
+
+      if (showGlColumn) {
+          leagueStandingsContainer.classList.remove('hide-gl-column');
+      } else {
+          leagueStandingsContainer.classList.add('hide-gl-column');
+      }
 
       let season0 = season - 1;
       let day0 = day - 1;
@@ -615,7 +627,13 @@
               }
               tr.appendChild(tdGb);
 
-              // Col 6: Elim #
+              // Col 6: GL
+              var tdGl = document.createElement('td');
+              tdGl.classList.add('text-center', 'gl-col'); // Align right
+              tdGl.textContent = dps - (our_wins + our_losses);
+              tr.appendChild(tdGl);
+
+              // Col 7: Elim #
               var tdElim = document.createElement('td');
               tdElim.classList.add('text-center'); // Align right
               if (iS === 0) {
