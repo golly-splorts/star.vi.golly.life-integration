@@ -198,60 +198,86 @@
 
       // Get total number of days
       var nDays = seasonApiResult.length;
-      var nCols = nDays;
+      var nRows = Math.ceil((nDays + 1)/10);
+      var nCols = 10;
 
       var dayButtonsDivRow, rowButtonUlList, buttonPlaceholderElement, buttonLiElement;
       var iRow, iCol;
       var iDay = 0;
 
-      dayButtonsDivRow = document.createElement('div');
-      dayButtonsDivRow.classList.add('row');
-      dayButtonsDivRow.classList.add('justify-content-md-center');
+      for (iRow = 0; iRow < nRows; iRow++) {
 
-      for (iCol = 0; iCol < nCols; iCol++) {
-        if( iCol==0) {
+        dayButtonsDivRow = document.createElement('div');
+        dayButtonsDivRow.classList.add('row');
+        dayButtonsDivRow.classList.add('justify-content-md-center');
 
-          // Add a no-button placeholder at day 0 position
-          buttonPlaceholderElement = document.createElement('div');
-          buttonPlaceholderElement.classList.add('season-number-button');
-          dayButtonsDivRow.appendChild(buttonPlaceholderElement);
+        for (iCol = 0; iCol < nCols; iCol++) {
+          if(iRow==0 && iCol==0) {
 
-          // Initialize the ul list
-          rowButtonUlList = document.createElement('ul');
-          rowButtonUlList.classList.add('pagination');
-          rowButtonUlList.classList.add('pagination-sm');
-          rowButtonUlList.classList.add('justify-content-md-center');
+            // Add a no-button placeholder at day 0 position
+            buttonPlaceholderElement = document.createElement('div');
+            buttonPlaceholderElement.classList.add('season-number-button');
+            dayButtonsDivRow.appendChild(buttonPlaceholderElement);
 
+            // Initialize the ul list
+            rowButtonUlList = document.createElement('ul');
+            rowButtonUlList.classList.add('pagination');
+            rowButtonUlList.classList.add('pagination-sm');
+
+          } else {
+
+            if (iDay >= nDays) {
+
+              if (iDay==nDays) {
+
+                // End the ul and create a new one
+                dayButtonsDivRow.appendChild(rowButtonUlList);
+                rowButtonUlList = document.createElement('ul');
+                rowButtonUlList.classList.add('pagination');
+                rowButtonUlList.classList.add('pagination-sm');
+
+              }
+
+              // Add a no-button placeholder instead of a day button
+              buttonPlaceholderElement = document.createElement('div');
+              buttonPlaceholderElement.classList.add('season-number-button');
+              dayButtonsDivRow.appendChild(buttonPlaceholderElement);
+
+            } else {
+
+              // Create a button for this day
+              var day = iDay + 1;
+              buttonLiElement = document.createElement('li');
+              buttonLiElement.classList.add('page-item');
+              buttonLiElement.classList.add('text-center');
+              buttonLiElement.classList.add('season-number-button');
+
+              var a = document.createElement('a');
+              a.classList.add('page-link');
+              a.setAttribute('href', '#' + day);
+              a.innerHTML = day;
+
+              buttonLiElement.appendChild(a);
+              rowButtonUlList.appendChild(buttonLiElement);
+
+            }
+
+            if (iCol == 9) {
+
+              // end ul here because it's either maximum number of days, or end of row
+              dayButtonsDivRow.appendChild(rowButtonUlList);
+
+              // End the ul and create a new one
+              dayButtonsDivRow.appendChild(rowButtonUlList);
+              rowButtonUlList = document.createElement('ul');
+              rowButtonUlList.classList.add('pagination');
+              rowButtonUlList.classList.add('pagination-sm');
+
+            }
+            iDay++;
+          }
+          dayContainer.appendChild(dayButtonsDivRow);
         }
-
-        // Create a button for this day
-        var day = iDay + 1;
-
-        buttonLiElement = document.createElement('li');
-        buttonLiElement.classList.add('page-item');
-        buttonLiElement.classList.add('text-center');
-        buttonLiElement.classList.add('season-number-button');
-
-        var a = document.createElement('a');
-        a.classList.add('page-link');
-        a.setAttribute('href', '#' + day);
-        a.innerHTML = day;
-
-        buttonLiElement.appendChild(a);
-        rowButtonUlList.appendChild(buttonLiElement);
-
-        if (iCol == nDays-1) {
-
-          // end ul here because it's either maximum number of days, or end of row
-          dayButtonsDivRow.appendChild(rowButtonUlList);
-
-          // End the ul
-          dayButtonsDivRow.appendChild(rowButtonUlList);
-
-        }
-        iDay++;
-
-        dayContainer.appendChild(dayButtonsDivRow);
       }
     },
 

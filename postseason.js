@@ -405,8 +405,8 @@
           var icontainerId = "champion-icon-container";
           var icontainer = document.getElementById(icontainerId);
           var svg = document.createElement("object");
-
           svg.setAttribute('type', 'image/svg+xml');
+          svg.setAttribute('rel', 'prefetch');
           svg.setAttribute('data', '../img/' + winTeamAbbr.toLowerCase() + '.svg');
           svg.setAttribute('height', iconSize);
           svg.setAttribute('width', iconSize);

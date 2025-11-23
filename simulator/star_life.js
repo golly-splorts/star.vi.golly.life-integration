@@ -74,9 +74,8 @@
     //s2Default: '[{"60":[60,160]},{"61":[62,162]},{"62":[59,60,63,64,65,159,160,163,164,165]}]',
 
     // Geometry:
-    //defaultCols: 240, // this is a good size
-    defaultRows: 160,
     defaultCols: 240,
+    defaultRows: 160,
     defaultCellSize: 3,
 
     //// Stability:
@@ -91,6 +90,14 @@
     mapsApiUrl : getMapsApiUrl(),
     // this may duplicate / between the base url and simulator
     baseSimulatorUrl : getBaseUIUrl() + '/simulator/index.html',
+
+    simulatorDivIds : [
+      'container-golly-header',
+      'container-golly-controls',
+      'container-canvas',
+      'container-golly-frontmatter',
+      'container-loading'
+    ],
 
     // Other params
     gameMode : false,
@@ -132,6 +139,10 @@
         {
           aliveLabels: ['Orange', 'Blue', 'Referees'],
           alive:       ['#e66100', '#0c7bdc', '#ffffff'],
+        },
+        {
+          aliveLabels: ['Yellow', 'Red', 'Referees'],
+          alive: ['#ffc20a', '#dc3220', '#ffffff'],
         }
       ],
 
@@ -209,7 +220,26 @@
         this.loadState();       // Load state from config
       } catch (e) {
         console.log(e);
+        this.error(-1);
       }
+    },
+
+    error : function(mode) {
+
+      // Hide elements
+      for (var c in this.simulatorDivIds) {
+        try {
+          var elem = document.getElementById(this.simulatorDivIds[c]);
+          elem.classList.add('invisible');
+        } catch (e) {
+          // do nothing
+        }
+      }
+
+      // Show error
+      var container = document.getElementById('container-error');
+      container.classList.remove("invisible");
+
     },
 
     loading : function() {
@@ -343,11 +373,11 @@
           var gameTitleElem = document.getElementById('golly-game-title');
           if (gameApiResult.isPostseason == true) {
             var sp1 = gameApiResult.season + 1;
-            gameTitleElem.innerHTML = "Star Cup: " + gameApiResult.description + " <small>- S" + sp1 + "</small>";
+            gameTitleElem.innerHTML = "Star VI: " + gameApiResult.description + " <small>- S" + sp1 + "</small>";
           } else {
             var sp1 = gameApiResult.season + 1;
             var dp1 = gameApiResult.day + 1;
-            var descr = "Star Season " + sp1 + " Day " + dp1;
+            var descr = "Star VI Cup: Season " + sp1 + " Day " + dp1;
             gameTitleElem.innerHTML = descr;
           }
 
@@ -393,7 +423,9 @@
           this.prepare()
 
         })
-        .catch(err => { throw err });
+        .catch(err => {
+          this.error(-1);
+        });
         // Done loading game from /game API endpoint
 
       } else if (this.patternName != null) {
@@ -417,7 +449,7 @@
 
           // Set the game title
           var gameTitleElem = document.getElementById('golly-game-title');
-          gameTitleElem.innerHTML = "Star Map: " + mapApiResult.mapName;
+          gameTitleElem.innerHTML = "Star VI Map: " + mapApiResult.mapName;
 
           this.setTeamNames();
           this.setColors();
@@ -447,7 +479,9 @@
           this.prepare()
 
         })
-        .catch(err => { throw err });
+        .catch(err => {
+          this.error(-1);
+        });
         // Done loading pattern from /map API endpoint
 
       } else {
@@ -472,7 +506,7 @@
 
           // Set the game title
           var gameTitleElem = document.getElementById('golly-game-title');
-          gameTitleElem.innerHTML = "Star Sandbox";
+          gameTitleElem.innerHTML = "Sandbox";
 
         } else {
           this.initialState1 = this.s1Default;
@@ -480,7 +514,7 @@
 
           // Set the game title
           var gameTitleElem = document.getElementById('golly-game-title');
-          gameTitleElem.innerHTML = "Star Sandbox";
+          gameTitleElem.innerHTML = "Sandbox";
 
         }
         // No ability to specify referee state by URL, and no default state
@@ -596,6 +630,10 @@
       }
     },
 
+    /**
+     * Given the team color and the grid background color,
+     * calculate the background color of dead waiting cells.
+     */
     interpolateDeadWaitColor : function(hexcol1, hexcol2, dw) {
       slots = (this.ruleParams.c-1);
       p = (slots-dw)/slots;
@@ -828,8 +866,6 @@
           for (icol = 0 ; icol < state1[irow][y].length ; icol++) {
             var yy = parseInt(y);
             var xx = state1[irow][yy][icol];
-            //this.listLife.addCell(xx, yy, this.listLife.actualState);
-            //this.listLife.addCell(xx, yy, this.listLife.actualState1);
             color = 1;
             this.listLife.addAliveCell(xx, yy, color);
           }
@@ -845,8 +881,6 @@
             var yy = parseInt(y);
             var xx = state2[irow][yy][icol];
             if (!this.listLife.isAlive(xx, yy)) {
-              //this.listLife.addCell(xx, yy, this.listLife.actualState);
-              //this.listLife.addCell(xx, yy, this.listLife.actualState2);
               color = 2;
               this.listLife.addAliveCell(xx, yy, color);
             }
@@ -1044,7 +1078,7 @@
       } else {
 
         // TODO When not in game mode, do the following:
-        // - remove table columns for records and rainbows
+        // - remove table columns for records
         // - shrink icons column to 0px
         // - shrink scoreboard container to sm-4
         var elems;
@@ -1070,6 +1104,8 @@
 
     updateTeamNamesColors : function() {
       var i, e;
+
+      // Team colors
       for (i = 0; i < this.element.team1color.length; i++) {
         e = this.element.team1color[i];
         e.style.color = this.colors.alive[0];
@@ -1078,6 +1114,8 @@
         e = this.element.team2color[i];
         e.style.color = this.colors.alive[1];
       }
+
+      // Team names
       for (i = 0; i < this.element.team1name.length; i++) {
         e = this.element.team1name[i];
         e.innerHTML = this.teamNames[0];
@@ -1430,6 +1468,9 @@
               GOL.updateStatisticsElements(liveCounts);
               // This should probably be in an updateGeneration() function
               GOL.element.generation.innerHTML = 0;
+
+              // DONE WITH CLEAR BUTTON CLEANUP
+              //////////////////////////////////////////
             }
           }
         },
@@ -1494,18 +1535,10 @@
          * Update simulation speed
          */
         speedControl : function() {
-          //console.log('updated speed slider');
-          //var x = 0;
-          //try {
-          //  x = parseInt(document.getElementById("speed-slider").value);
-          //} catch {
-          //  console.log("Could not read speed-slider value, setting to default of 10 ms");
-          //  x = 10;
-          //}
-          // Set the wait time to be the maximum of
-          // 1s and whatever the slider specifies
-          //this.waitTimeMs = Math.min(10**x, 1000);
-          //console.log("Updated wait time to " + this.waitTimeMs);
+          // We don't need to do anything with the
+          // speed slider value here.
+          // The getWaitTimeMs function will read
+          // the value of the speed slider directly.
         },
 
       },
@@ -1697,7 +1730,8 @@
 
       /**
        * switchCell
-       * cmr - this is only activated when a user clicks on a cell
+       *
+       * This is only activated when a user clicks on a cell
        */
       switchCell : function(i, j) {
         //////////////
@@ -1930,18 +1964,20 @@
 
         // iterate over each alive cell (iterate over actualState list)
         // this is the SURVIVE step
+        var y, ym1, yp1;
         for (i = 0; i < this.actualState.length; i++) {
 
-          var x, y, xm1, ym1, xp1, yp1;
+          y = this.actualState[i][0];
+          yp1 = this.periodicNormalizey(y+1);
+          ym1 = this.periodicNormalizey(y-1);
+
+          var x, xm1, xp1;
+          var kx, kxm1, kxp1;
           for (j = 1; j < this.actualState[i].length; j++) {
+
             x = this.actualState[i][j];
-            y = this.actualState[i][0];
-
-            xm1 = this.periodicNormalizex(x-1);
-            ym1 = this.periodicNormalizey(y-1);
-
             xp1 = this.periodicNormalizex(x+1);
-            yp1 = this.periodicNormalizey(y+1);
+            xm1 = this.periodicNormalizex(x-1);
 
             x = this.periodicNormalizex(x);
             y = this.periodicNormalizey(y);
@@ -1954,7 +1990,10 @@
             // In case of a tie, use existing color.
             result = this.getNeighborsFromAlive(x, y, deadNeighbors);
             neighbors = result['neighbors'];
+
+            // Majority wins, use color returned by getNeighborsFromAlive
             color = result['color'];
+
             // (Note: rejected the color-preserving method for star wars CA
             // because it is impossible for it to stabilize.)
 
@@ -2462,7 +2501,9 @@
         // AAAAB -> A
         // AAABB -> A
         // AAABR -> A
+        // AABRR -> A
         // AABBR -> Refs
+        // ABRRR -> Refs
 
         // This is the final color returned
         // 0 means no alive colors/cells

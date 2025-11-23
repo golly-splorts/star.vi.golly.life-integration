@@ -1,30 +1,31 @@
 <!DOCTYPE html>
 <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
 <meta content="utf-8" http-equiv="encoding">
+<meta charset="utf-8">
 <html lang="en">
 <head>
 
-    <title>GollyX456 Star Cup</title>
+    <title>Star VI Cup</title>
     <meta charset="utf-8" />
 
     <script>
-var baseUIUrl  = 'https://star.integration.golly456.life';
-var baseApiUrl = 'https://cloud.star.golly456.life';
-var mapsApiUrl = 'https://maps.golly456.life';
+        var baseUIUrl  = 'https://star.vi.integration.golly456.life';
+        var baseApiUrl = 'https://cloud.star.vi.golly456.life';
+        var mapsApiUrl = 'https://maps.golly456.life';
     </script>
 
     <!--
     CSS styles
     -->
-    <link href="https://star.integration.golly456.life/theme/css/cyborg.css" rel="stylesheet" type="text/css">
-    <link href="https://star.integration.golly456.life/theme/css/custom.css" rel="stylesheet" type="text/css">
+    <link href="https://star.vi.integration.golly456.life/theme/css/cyborg.css"  rel="stylesheet" type="text/css">
+    <link href="https://star.vi.integration.golly456.life/theme/css/custom.css" rel="stylesheet" type="text/css">
 
-    <link rel="icon" type="image/png" href="https://star.integration.golly456.life/theme/img/star-favicon.png">
+    <link rel="icon" type="image/png" href="https://star.vi.integration.golly456.life/theme/img/star-favicon.png">
 
     <!--
         Versions:
-        gollyx-star-pelican: 614.0
-        gollyx-star-pelican-theme: 614.0
+        gollyx-star-vi-pelican: 614.0
+        gollyx-star-vi-pelican-theme: 614.0
     -->
 
 
@@ -36,9 +37,9 @@ var mapsApiUrl = 'https://maps.golly456.life';
 
   <div id="navbar-div-container" class="container">
 
-    <a href="https://star.integration.golly456.life/" class="navbar-brand">
-      <img class="navbar-brand-logo" type="image/png" width="25px" src="https://star.integration.golly456.life/theme/img/star-cup.png" alt="logo" />
-      GollyX456 Star Cup
+    <a href="https://star.vi.integration.golly456.life/" class="navbar-brand">
+      <img class="navbar-brand-logo" type="image/png" width="25px" src="https://star.vi.integration.golly456.life/theme/img/star-cup.png" alt="logo" />
+      Star VI Cup
     </a>
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -67,7 +68,7 @@ var mapsApiUrl = 'https://maps.golly456.life';
           </a>
           <div id="navbar-season-dropdown-menu" class="dropdown-menu" aria-labelledby="themes">
             <!--
-            <a class="dropdown-item" href="https://star.integration.golly456.life/season.html">Season 1</a>
+            <a class="dropdown-item" href="https://star.vi.integration.golly456.life/season.html">Season 1</a>
             -->
           </div>
         </li>
@@ -79,14 +80,14 @@ var mapsApiUrl = 'https://maps.golly456.life';
           </a>
           <div id="navbar-postseason-dropdown-menu" class="dropdown-menu" aria-labelledby="themes">
             <!--
-            <a class="dropdown-item" href="https://star.integration.golly456.life/postseason.html">Season 1</a>
+            <a class="dropdown-item" href="https://star.vi.integration.golly456.life/postseason.html">Season 1</a>
             -->
           </div>
         </li>
 
         <!-- league -->
         <li class="nav-item">
-          <a class="nav-link" href="https://star.integration.golly456.life/league.html">Standings</a>
+          <a class="nav-link" href="https://star.vi.integration.golly456.life/league.html">Standings</a>
         </li>
 
         <!-- explore -->
@@ -127,12 +128,12 @@ var mapsApiUrl = 'https://maps.golly456.life';
 
         <!-- maps -->
         <li class="nav-item">
-            <a class="nav-link" href="https://star.integration.golly456.life/maps.html">Maps</a>
+            <a class="nav-link" href="https://star.vi.integration.golly456.life/maps.html">Maps</a>
         </li>
 
         <!-- simulator -->
         <li class="nav-item">
-            <a class="nav-link" href="https://star.integration.golly456.life/simulator/index.html">Simulator</a>
+            <a class="nav-link" href="https://star.vi.integration.golly456.life/simulator/index.html">Simulator</a>
         </li>
 
         <!-- cups -->
@@ -168,8 +169,8 @@ var mapsApiUrl = 'https://maps.golly456.life';
           </a>
           <div id="navbar-about-dropdown-menu" class="dropdown-menu" aria-labelledby="themes">
             <a class="dropdown-item" href="https://wiki.golly.life">Golly.Life Wiki</a>
-            <a class="dropdown-item" href="https://wiki.golly.life/wiki/Star_Cup">About the Star Cup</a>
-            <a class="dropdown-item" href="https://wiki.golly.life/wiki/Star_Cup/Rules">Star Cup Rules</a>
+            <a class="dropdown-item" href="https://wiki.golly.life/wiki/Star_VI_Cup">About the Star VI Cup</a>
+            <a class="dropdown-item" href="https://wiki.golly.life/wiki/Star_VI_Cup/Rules">Star VI Cup Rules</a>
           </div>
         </li>
 
@@ -178,87 +179,228 @@ var mapsApiUrl = 'https://maps.golly456.life';
   </div>
 </div>
 
+<style>
+  .card .table th,
+  .card .table td {
+    /* Add vertical lines */
+    border-top: none;
+    border-bottom: none;
+    font-size: 0.9375rem;
+  }
+  
+  /* Prevent line wrapping in the team name column */
+  .card .table .team-cell {
+    white-space: nowrap;
+  }
+
+  /* Make the 'Team' header bold */
+  .card .table th.text-left {
+    font-weight: bold;
+  }
+
+  /* Make the team name cells bold */
+  .card .table tbody tr td:first-child {
+    font-weight: bold;
+  }
+
+  /* Center align text in non-team-name data cells */
+  .card .table tbody tr td:nth-child(n+2) {
+    text-align: center;
+  }
+
+  /* Add left border to all th and td except the first one */
+  .card .table th:not(:first-child),
+  .card .table td:not(:first-child) {
+    border-left: 1px solid rgba(255,255,255,0.15);
+  }
+
+  /* Border below table header */
+  .table > :not(:first-child) {
+    border-top: 2px solid rgba(255,255,255,0.15);
+  }
+
+</style>
+
 <div class="container invisible" id="league-standings-header-container">
 
   <div class="row text-center league-standings-header-row">
     <div class="col-md-12">
-      <h2 class="text-center league-standings-header-text">Star Cup: Season <span id="standings-header-season-number">_</span> Standings</h2>
+      <h1 class="text-center league-standings-header-text">League Standings</h2>
+    </div>
+  </div>
+
+  <div class="row text-center justify-content-center" id="dropdown-row">
+    <div class="col-auto">
+      <span class="mr-2">Season</span>
+      <div class="btn-group">
+        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="season-dropdown-button">
+          Loading...
+        </button>
+        <div class="dropdown-menu" id="season-dropdown-menu" style="max-height: 200px; overflow-y: auto;">
+          </div>
+      </div>
+    </div>
+
+    <div class="col-auto">
+      <span class="mr-2">Day</span>
+      <div class="btn-group">
+        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="day-dropdown-button">
+          Loading...
+        </button>
+        <div class="dropdown-menu" id="day-dropdown-menu" style="max-height: 200px; overflow-y: auto;">
+          </div>
+      </div>
     </div>
   </div>
 
 </div>
 
+
+
 <div class="container invisible" id="league-standings-container">
 
-  <!-- league 1 -->
   <div class="row text-center justify-content-lg-center league-standings-league-header-row">
-    <div class="col-md-8">
+    <div class="col-md-12">
       <h2 class="text-center league-standings-league-header-text"><span id="league-1-name"></span></h2>
     </div>
   </div>
 
   <div class="row justify-content-lg-center" id="league-1-container">
 
-    <div class="col-lg-5" id="league-1-division-1-container">
-      <h4 class="text-center league-standings-division-header-text"><span id="league-1-division-1-name"></span></h4>
-      <ul class="list-group" id="league-1-division-1-ul">
-        <!--
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-          Team 1
-          <span class="standings-record">W-L</span>
-        </li>
-        -->
-      </ul>
+    <div class="col-xl-6 mb-4" id="league-1-division-1-container">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title text-center league-standings-division-header-text"><span id="league-1-division-1-name"></span></h4>
+          <div class="table-responsive-sm">
+            <table class="table table-striped table-sm table-hover">
+              <thead>
+                <tr>
+                  <th scope="col" class="text-left">Team</th>
+                  <th scope="col" class="text-center">W</th>
+                  <th scope="col" class="text-center">L</th>
+                  <th scope="col" class="text-center">Pct</th>
+                  <th scope="col" class="text-center games-left-col">GL</th>
+                  <th scope="col" class="text-center">GB</th>
+                  <th scope="col" class="text-center">E#</th>
+                  <th scope="col" class="text-center">WCE#</th>
+                </tr>
+              </thead>
+              <tbody id="league-1-division-1-tbody">
+                </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div class="col-lg-5" id="league-1-division-2-container">
-      <h4 class="text-center league-standings-division-header-text"><span id="league-1-division-2-name"></span></h4>
-      <ul class="list-group" id="league-1-division-2-ul">
-        <!--
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-          Team 1
-          <span class="standings-record">W-L</span>
-        </li>
-        -->
-      </ul>
+    <div class="col-xl-6 mb-4" id="league-1-division-2-container">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title text-center league-standings-division-header-text"><span id="league-1-division-2-name"></span></h4>
+          <div class="table-responsive-sm">
+            <table class="table table-striped table-sm table-hover">
+              <thead>
+                <tr>
+                  <th scope="col" class="text-left">Team</th>
+                  <th scope="col" class="text-center">W</th>
+                  <th scope="col" class="text-center">L</th>
+                  <th scope="col" class="text-center">Pct</th>
+                  <th scope="col" class="text-center games-left-col">GL</th>
+                  <th scope="col" class="text-center">GB</th>
+                  <th scope="col" class="text-center">E#</th>
+                  <th scope="col" class="text-center">WCE#</th>
+                </tr>
+              </thead>
+              <tbody id="league-1-division-2-tbody">
+                </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
 
   </div>
 
-  <!-- league 2 -->
   <div class="row text-center justify-content-lg-center league-standings-league-header-row">
-    <div class="col-md-8">
+    <div class="col-md-12">
       <h2 class="text-center league-standings-league-header-text"><span id="league-2-name"></span></h2>
     </div>
   </div>
 
   <div class="row justify-content-lg-center" id="league-2-container">
 
-    <div class="col-lg-5" id="league-2-division-1-container">
-      <h4 class="text-center league-standings-division-header-text"><span id="league-2-division-1-name"></span></h4>
-      <ul class="list-group" id="league-2-division-1-ul">
-        <!--
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-          Team 1
-          <span class="standings-record">W-L</span>
-        </li>
-        -->
-      </ul>
+    <div class="col-xl-6 mb-4" id="league-2-division-1-container">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title text-center league-standings-division-header-text"><span id="league-2-division-1-name"></span></h4>
+          <div class="table-responsive-sm">
+            <table class="table table-striped table-sm table-hover">
+              <thead>
+                <tr>
+                  <th scope="col" class="text-left">Team</th>
+                  <th scope="col" class="text-center">W</th>
+                  <th scope="col" class="text-center">L</th>
+                  <th scope="col" class="text-center">Pct</th>
+                  <th scope="col" class="text-center games-left-col">GL</th>
+                  <th scope="col" class="text-center">GB</th>
+                  <th scope="col" class="text-center">E#</th>
+                  <th scope="col" class="text-center">WCE#</th>
+                </tr>
+              </thead>
+              <tbody id="league-2-division-1-tbody">
+                </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div class="col-lg-5" id="league-2-division-1-container">
-      <h4 class="text-center league-standings-division-header-text"><span id="league-2-division-2-name"></span></h4>
-      <ul class="list-group" id="league-2-division-2-ul">
-        <!--
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-          Team 1
-          <span class="standings-record">W-L</span>
-        </li>
-        -->
-      </ul>
+    <div class="col-xl-6 mb-4" id="league-2-division-2-container">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title text-center league-standings-division-header-text"><span id="league-2-division-2-name"></span></h4>
+          <div class="table-responsive-sm">
+            <table class="table table-striped table-sm table-hover">
+              <thead>
+                <tr>
+                  <th scope="col" class="text-left">Team</th>
+                  <th scope="col" class="text-center">W</th>
+                  <th scope="col" class="text-center">L</th>
+                  <th scope="col" class="text-center">Pct</th>
+                  <th scope="col" class="text-center games-left-col">GL</th>
+                  <th scope="col" class="text-center">GB</th>
+                  <th scope="col" class="text-center">E#</th>
+                  <th scope="col" class="text-center">WCE#</th>
+                </tr>
+              </thead>
+              <tbody id="league-2-division-2-tbody">
+                </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
 
   </div>
+
+  <div class="row justify-content-center">
+    <div class="col-lg-10">
+        <hr />
+        <h5>Legend</h5>
+        <ul class="list-unstyled">
+            <li><strong>GB</strong> : Games Behind</li>
+            <li><strong>GL</strong> : Games Left</li>
+            <li><strong>E#</strong> : Elimination Number (0 indicates team has been mathematically eliminated from winning the division)</li>
+            <li><strong>WCE#</strong> : Wild Card Elimination Number (0 indicates team has been mathematically eliminated from the postseason)</li>
+        </ul>
+        <ul class="list-unstyled">
+            <li><strong>x-</strong> : Clinched Division</li>
+            <li><strong>w-</strong> : Clinched Wild Card</li>
+            <li><strong>e-</strong> : Eliminated</li>
+        </ul>
+    </div>
+  </div>
+
 
 </div>
 
@@ -303,26 +445,24 @@ var mapsApiUrl = 'https://maps.golly456.life';
 </noscript>
 
 
-<script type="text/javascript" src="https://star.integration.golly456.life/theme/js/geturl.js"></script>
-<script type="text/javascript" src="https://star.integration.golly456.life/theme/js/tables.js"></script>
-<script type="text/javascript" src="https://star.integration.golly456.life/theme/js/navbar.js"></script>
-<script type="text/javascript" src="https://star.integration.golly456.life/theme/js/jquery.min.js"></script>
-<script type="text/javascript" src="https://star.integration.golly456.life/theme/js/bootstrap.bundle.min.js"></script>
-<script type="text/javascript" src="https://star.integration.golly456.life/theme/js/jquery-svg.js"></script>
+<script type="text/javascript" src="https://star.vi.integration.golly456.life/theme/js/geturl.js"></script>
+<script type="text/javascript" src="https://star.vi.integration.golly456.life/theme/js/tables.js"></script>
+<script type="text/javascript" src="https://star.vi.integration.golly456.life/theme/js/navbar.js"></script>
+<script type="text/javascript" src="https://star.vi.integration.golly456.life/theme/js/jquery.min.js"></script>
+<script type="text/javascript" src="https://star.vi.integration.golly456.life/theme/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" src="https://star.vi.integration.golly456.life/theme/js/jquery-svg.js"></script>
 <script type="text/javascript" src="league.js"></script>
 
 <footer id="contentinfo" class="body">
     <div class="text-center">
     <p>Golly is a product of the Metablaseball Research Laboratory at Hellmouth Community College</p>
 
-    <p>Golly.Life on Twitter: <a href="https://twitter.com/gollysplorts">Golly Splorts</a></p>
-
-    <p>Golly.Life Chief Architect: <a href="https://twitter.com/ch4zm_of_hell">Ch4zm of Hellmouth</a></p>
+    <p>Golly.Life Chief Architect: Ch4zm of Hellmouth</p>
 
     <p>Golly Commissioner: Rubrix Helicopter</p>
 
     <p>
-        Licensed under the <a rel="license" href="https://mit-license.org/">MIT License</a> - <a href="https://github.com/golly-splorts/golly-pelican/blob/main/ATTRIBUTION">Attribution</a>
+        Licensed under the <a rel="license" href="https://mit-license.org/">MIT License</a> - <a href="https://github.com/golly-splorts/gollyx-star-vi-pelican/blob/main/ATTRIBUTION">Attribution</a>
     </p>
     </div>
 
