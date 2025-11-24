@@ -256,17 +256,6 @@
       this.clearStandings();
       this.loading();
 
-      const leagueStandingsContainer = document.getElementById('league-standings-container');
-      const mode = this.modeApiResult.mode;
-      const currentSeason = this.modeApiResult.season + 1;
-      const showGlColumn = (mode >= 10 && mode < 20 && season == currentSeason);
-
-      if (showGlColumn) {
-          leagueStandingsContainer.classList.remove('hide-gl-column');
-      } else {
-          leagueStandingsContainer.classList.add('hide-gl-column');
-      }
-
       let season0 = season - 1;
       let day0 = day - 1;
       const dps = 11; // days per season
@@ -309,6 +298,18 @@
     },
 
     populateStandings: function(standingsApiResult, seedsApiResult) {
+        const mode = this.modeApiResult.mode;
+        const showGamesLeft = mode >= 10 && mode < 20;
+
+        const gl_headers = document.getElementsByClassName('games-left-col');
+        for (let i = 0; i < gl_headers.length; i++) {
+            if (showGamesLeft) {
+                gl_headers[i].style.display = '';
+            } else {
+                gl_headers[i].style.display = 'none';
+            }
+        }
+
         // Hide loading message and make league standings container visible
         this.loadingElem.classList.add('invisible');
         var leagueStandingsElem = document.getElementById('league-standings-container');
@@ -614,7 +615,17 @@
               tdPct.textContent = pct.toFixed(2);
               tr.appendChild(tdPct);
 
-              // Col 5: GB
+              // Col 5: Games Left
+              if (showGamesLeft) {
+                const dps = 11;
+                var tdGl = document.createElement('td');
+                tdGl.classList.add('text-center', 'games-left-col');
+                const games_played = our_wins + our_losses;
+                tdGl.textContent = dps - games_played;
+                tr.appendChild(tdGl);
+              }
+
+              // Col 6: GB
               var tdGb = document.createElement('td');
               tdGb.classList.add('text-center'); // Align right
               if (iS === 0) {
@@ -627,12 +638,6 @@
               }
               tr.appendChild(tdGb);
 
-              // Col 6: GL
-              var tdGl = document.createElement('td');
-              tdGl.classList.add('text-center', 'gl-col'); // Align right
-              tdGl.textContent = dps - (our_wins + our_losses);
-              tr.appendChild(tdGl);
-
               // Col 7: Elim #
               var tdElim = document.createElement('td');
               tdElim.classList.add('text-center'); // Align right
@@ -644,7 +649,7 @@
               }
               tr.appendChild(tdElim);
 
-              // Col 7: WC Elim #
+              // Col 8: WC Elim #
               var tdWcElim = document.createElement('td');
               tdWcElim.classList.add('text-center'); // Align right
               if (iS === 0) {
