@@ -814,7 +814,7 @@
         } else if(mode==23) {
 
           ////////////////////////////
-          // Star VI Cup Series
+          // Star Cup Series
           // Scheduled
 
           // SCS has no league, single-column
@@ -1111,7 +1111,7 @@
         } else if (mode==33) {
 
           ////////////////////////////
-          // Star VI Cup Series
+          // Star Cup Series
           // In progress
 
           // SCS has no league, single-column
